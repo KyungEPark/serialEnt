@@ -1,4 +1,4 @@
-from util.functions import read_docx_as_text
+from util.functions import read_docx_as_text, clean_newlines, clean_chars
 import os
 import pandas as pd
 
@@ -8,6 +8,8 @@ def main():
     for file in os.listdir(path):
         if file.endswith(".docx"):
             text = read_docx_as_text(os.path.join(path, file))
+            text = clean_newlines(text)
+            text= clean_chars(text)
             ppldata.loc[ppldata['Filename'] == file, "text"] = text
     ppldata.to_pickle(r"C:\Users\cryst\Desktop\personal_projects\post_mortem\data\processed\postmortem_df.pkl")
     
